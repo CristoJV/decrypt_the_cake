@@ -53,26 +53,26 @@ encoded_len = . - encoded
         .global _start
 
 _start:
-        mov     r0, #1
-        ldr     r1, =encoded
-        ldr     r2, =encoded_len
-        ldrb    r3, [r1]
-        add     r1, r1, #1
-        sub     r2, r2, #1
-        mov     r4, #0
+        mov     x0, #1
+        ldr     x1, =encoded
+        ldr     x2, =encoded_len
+        ldrb    w3, [x1]
+        add     x1, x1, #1
+        sub     x2, x2, #1
+        mov     x4, #0
 
 decrypt:
-        cmp     r4, r2
-        bge     show
-        ldrb    r5, [r1, r4]
-        eor     r5, r5, r3
-        strb    r5, [r1, r4]
-        add     r4, r4, #1
+        cmp     x4, x2
+        b.ge    show
+        ldrb    w5, [x1, x4]
+        eor     w5, w5, w3
+        strb    w5, [x1, x4]
+        add     x4, x4, #1
         b       decrypt
 
 show:
-        mov     r7, #4
+        mov     x8, #64
         svc     #0
-        mov     r0, #0
-        mov     r7, #1
+        mov     x0, #0
+        mov     x8, #93
         svc     #0
